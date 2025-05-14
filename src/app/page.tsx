@@ -54,6 +54,8 @@ export default function Home() {
       return;
     }
     
+    // Yükleme başladığında bilgi ver
+    toast.loading("Dosya yükleniyor ve analiz ediliyor...", { id: "upload" });
     setIsUploading(true);
     const formData = new FormData();
     formData.append("file", file);
@@ -69,33 +71,45 @@ export default function Home() {
       }
       
       const data = await response.json();
+      
+      // Hata kontrolü
+      if (data.error) {
+        const errorMsg = data.error || "Yükleme sırasında hata oluştu!";
+        toast.error(errorMsg, { id: "upload" });
+        return;
+      }
+      
+      // Dosya yüklendiğinde (artık dosya değil tüm analiz sonuçları)
       if (data.filename) {
         setFilename(data.filename);
-        toast.success("Dosya başarıyla yüklendi.");
+        // Analiz sonuçlarını direkt olarak set edelim
+        setAnalyzeResult(data);
+        toast.success("Dosya başarıyla analiz edildi!", { id: "upload" });
       } else {
-        const errorMsg = data.error || "Yükleme sırasında hata oluştu!";
-        toast.error(errorMsg);
+        const errorMsg = "Beklenmeyen bir hata oluştu. Sunucudan geçerli yanıt alınamadı.";
+        toast.error(errorMsg, { id: "upload" });
       }
     } catch (error) {
       console.error("Yükleme hatası:", error);
       const errorMsg = "Bağlantı hatası! Lütfen tekrar deneyin.";
-      toast.error(errorMsg);
+      toast.error(errorMsg, { id: "upload" });
     } finally {
       setIsUploading(false);
     }
   };
 
   const handleAnalyze = async () => {
-    setAnalyzeResult(null);
-    if (!filename) {
-      const errorMsg = "Önce bir dosya yükleyin!";
-      toast.error(errorMsg);
-      return;
-    }
-    
+    // filename'e ihtiyaç yoksa analiz için
     setIsAnalyzing(true);
+    toast.loading("Analiz yapılıyor...", { id: "analyze" });
     
     try {
+      if (analyzeResult) {
+        // Zaten analiz edilmiş dosya var
+        toast.success("Analiz tamamlandı! Sonuçları inceleyebilirsiniz.", { id: "analyze" });
+        return;
+      }
+      
       const response = await fetch("/api/analyze", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -108,15 +122,15 @@ export default function Home() {
       
       const data = await response.json();
       if (data.error) {
-        toast.error(data.error);
+        toast.error(data.error, { id: "analyze" });
       } else {
         setAnalyzeResult(data);
-        toast.success("Analiz tamamlandı! Sonuçları inceleyebilirsiniz.");
+        toast.success("Analiz tamamlandı! Sonuçları inceleyebilirsiniz.", { id: "analyze" });
       }
     } catch (error) {
       console.error("Analiz hatası:", error);
       const errorMsg = "Analiz sırasında hata oluştu! Lütfen tekrar deneyin.";
-      toast.error(errorMsg);
+      toast.error(errorMsg, { id: "analyze" });
     } finally {
       setIsAnalyzing(false);
     }
@@ -171,21 +185,11 @@ export default function Home() {
           </button>
         </form>
         <div className="flex flex-col items-center mt-6 no-print">
-          <button
-            onClick={handleAnalyze}
-            disabled={isAnalyzing || !filename}
-            className={`px-8 py-2 rounded-lg ${isAnalyzing || !filename ? 'bg-gray-500 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'} text-white font-semibold shadow transition mb-4 flex items-center gap-2`}
-          >
-            {isAnalyzing ? (
-              <>
-                <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                </svg>
-                Analiz Ediliyor...
-              </>
-            ) : "Sohbeti Analiz Et"}
-          </button>
+          {!analyzeResult && (
+            <div className="text-center mb-4 text-gray-300">
+              <p>Analiz için dosya yükleyiniz</p>
+            </div>
+          )}
           {analyzeResult && (
             <div
               ref={reportRef}
