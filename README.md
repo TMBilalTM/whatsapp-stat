@@ -1,36 +1,87 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<h1 align="center">WhatsApp Sohbet Analiz Sistemi</h1>
+<p align="center"><b>Developed By BilalTM</b></p>
 
-## Getting Started
+<p align="center">
+  <img src="public/window.svg" width="120" alt="Logo" />
+</p>
 
-First, run the development server:
+WhatsApp sohbetlerinizi yükleyerek detaylı analiz ve istatistikler elde edin. Modern Next.js (TypeScript), Tailwind CSS ve Python (Flask) backend ile geliştirilmiştir.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+---
+
+## 🚀 Özellikler
+- 📁 WhatsApp .txt sohbet dosyası yükleme
+- 📊 Kişi bazlı mesaj, cevap süresi, duygu analizi ve daha fazlası
+- 🌙 Modern ve minimalist arayüz (Tailwind CSS)
+- 🐍 Python (Flask) ile hızlı ve güvenli analiz
+
+---
+
+## ⚡️ Hızlı Başlangıç
+
+### 1. Depoyu Klonlayın
+```sh
+git clone https://github.com/TMBilalTM/whatsapp-sohbet-analiz.git
+cd whatsapp-sohbet-analiz
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Frontend Kurulumu (Next.js)
+```sh
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 3. Backend Kurulumu (Flask)
+```sh
+cd backend
+python -m venv venv
+.\venv\Scripts\activate
+pip install flask flask-cors
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 4. Uygulamayı Başlatın
+#### Backend:
+```sh
+cd backend
+.\venv\Scripts\activate
+python app.py
+```
+#### Frontend:
+```sh
+npm run dev
+```
 
-## Learn More
+### 5. Tarayıcıda Açın
+[http://localhost:3000](http://localhost:3000)
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🛠️ Kullanım
+1. WhatsApp sohbetinizi .txt formatında dışa aktarın.
+2. Ana sayfadan dosyanızı yükleyin.
+3. Analiz sonuçlarını ve istatistikleri modern grafiklerle görüntüleyin.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 📂 Proje Yapısı
+```
+analiz/
+├── backend/           # Flask backend
+│   └── app.py
+├── public/            # Statik dosyalar ve ikonlar
+├── src/app/           # Next.js frontend kodları
+│   └── ...
+├── package.json       # Next.js bağımlılıkları
+└── README.md
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 💡 Katkı Sağlama
+Pull request'ler ve öneriler memnuniyetle karşılanır!
+
+---
+
+<p align="center"><b>Developed By BilalTM</b></p>
+
+## 📝 Lisans
+MIT

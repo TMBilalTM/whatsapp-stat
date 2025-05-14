@@ -1,0 +1,49 @@
+@media print {
+  /* Yazdırma için genel stil */
+  body {
+    background-color: white;
+    color: black;
+    font-size: 12px;
+  }
+  
+  /* Yazdırma sırasında gösterilecek ve gizlenecek elementler */
+  .no-print {
+    display: none !important;
+  }
+  
+  .print-only {
+    display: block !important;
+  }
+  
+  /* Arkaplan görünümünü iyileştir */
+  .print-bg-white {
+    background-color: white !important;
+    color: black !important;
+  }
+  
+  /* Sayfa başına sığacak şekilde ayarla */
+  .page-break {
+    page-break-after: always;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  
+  /* Yazdırma öncesi içerik stillerini düzenle */
+  .print-title {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  /* Mobil görünümünü düzelt */
+  .flex-col-print {
+    flex-direction: column !important;
+  }
+  
+  /* Gridleri yazdırmaya uygun hale getir */
+  .grid-print {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
