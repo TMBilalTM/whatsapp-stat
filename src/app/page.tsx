@@ -1,11 +1,9 @@
 "use client";
 import React, { useRef, useState } from "react";
-import { BarChart } from "./BarChart";
 import { TimeCharts } from "./TimeCharts";
 import { ContentAnalysis } from "./ContentAnalysis";
 import { EnhancedBarChart } from "./EnhancedBarChart";
 import PDFExportButton from "./PDFExportButton";
-import Head from 'next/head';
 
 interface AnalyzeResult {
   total_messages: number;
