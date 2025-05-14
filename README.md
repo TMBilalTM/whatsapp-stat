@@ -5,7 +5,7 @@
   <img src="public/window.svg" width="120" alt="Logo" />
 </p>
 
-WhatsApp sohbetlerinizi yükleyerek detaylı analiz ve istatistikler elde edin. Modern Next.js (TypeScript), Tailwind CSS ve Python (Flask) backend ile geliştirilmiştir.
+WhatsApp sohbetlerinizi yükleyerek detaylı analiz ve istatistikler elde edin. Modern Next.js (TypeScript) ve Tailwind CSS ile geliştirilmiştir. Tüm analiz işlemleri Next.js API route'ları üzerinden yapılır, ek bir backend kurulumu gerekmez.
 
 ---
 
@@ -13,7 +13,7 @@ WhatsApp sohbetlerinizi yükleyerek detaylı analiz ve istatistikler elde edin. 
 - 📁 WhatsApp .txt sohbet dosyası yükleme
 - 📊 Kişi bazlı mesaj, cevap süresi, duygu analizi ve daha fazlası
 - 🌙 Modern ve minimalist arayüz (Tailwind CSS)
-- 🐍 Python (Flask) ile hızlı ve güvenli analiz
+- ⚡️ Hızlı ve kolay kurulum, ek backend gerektirmez
 
 ---
 
@@ -25,32 +25,17 @@ git clone https://github.com/TMBilalTM/whatsapp-sohbet-analiz.git
 cd whatsapp-sohbet-analiz
 ```
 
-### 2. Frontend Kurulumu (Next.js)
+### 2. Bağımlılıkları Kurun
 ```sh
 npm install
 ```
 
-### 3. Backend Kurulumu (Flask)
-```sh
-cd backend
-python -m venv venv
-.\venv\Scripts\activate
-pip install flask flask-cors
-```
-
-### 4. Uygulamayı Başlatın
-#### Backend:
-```sh
-cd backend
-.\venv\Scripts\activate
-python app.py
-```
-#### Frontend:
+### 3. Uygulamayı Başlatın
 ```sh
 npm run dev
 ```
 
-### 5. Tarayıcıda Açın
+### 4. Tarayıcıda Açın
 [http://localhost:3000](http://localhost:3000)
 
 ---
@@ -65,10 +50,9 @@ npm run dev
 ## 📂 Proje Yapısı
 ```
 analiz/
-├── backend/           # Flask backend
-│   └── app.py
 ├── public/            # Statik dosyalar ve ikonlar
-├── src/app/           # Next.js frontend kodları
+├── src/app/           # Next.js frontend ve API route'ları
+│   ├── api/           # Dosya yükleme ve analiz API endpoint'leri
 │   └── ...
 ├── package.json       # Next.js bağımlılıkları
 └── README.md
