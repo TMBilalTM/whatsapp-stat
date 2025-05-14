@@ -5,14 +5,18 @@
     color: black;
     font-size: 12px;
   }
-  
-  /* Yazdırma sırasında gösterilecek ve gizlenecek elementler */
-  .no-print {
+    /* Yazdırma sırasında gösterilecek ve gizlenecek elementler */
+  .no-print, .screen-only {
     display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    position: absolute !important;
+    overflow: hidden !important;
   }
   
   .print-only {
     display: block !important;
+    visibility: visible !important;
   }
   
   /* Arkaplan görünümünü iyileştir */
@@ -34,16 +38,43 @@
     font-size: 18px;
     font-weight: bold;
     margin-bottom: 20px;
+    color: #000 !important;
+  }
+  
+  /* Yazdırma için özel üst başlık ekle */
+  .print-section::before {
+    content: "WhatsApp Sohbet Analiz Raporu";
+    display: block;
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #000 !important;
   }
   
   /* Mobil görünümünü düzelt */
   .flex-col-print {
     flex-direction: column !important;
   }
-  
-  /* Gridleri yazdırmaya uygun hale getir */
+    /* Gridleri yazdırmaya uygun hale getir */
   .grid-print {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  
+  /* Yazdırma için gereken ek düzenlemeler */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  h3, h4, p {
+    color: #000 !important;
+  }
+  
+  /* Ekrana özel içerikleri gizle */
+  .screen-only {
+    display: none !important;
   }
 }

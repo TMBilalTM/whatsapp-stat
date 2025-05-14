@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
@@ -20,11 +22,12 @@ const PDFExportButton: React.FC<PDFExportButtonProps> = ({
     
     try {
       // Analiz içeriğini bir canvas'a dönüştür
+      // PDF'e alınacak div'in arka planını klasik bir renge zorla
       const canvas = await html2canvas(contentRef.current, {
         scale: 2, // Daha yüksek kalite için
         logging: false,
         useCORS: true, // Eğer harici resimler varsa
-        backgroundColor: '#1a202c' // Bg dark color
+        backgroundColor: '#1a202c' // Tailwind gray-900
       });
       
       // Canvas'ı PDF'e dönüştür
@@ -65,7 +68,7 @@ const PDFExportButton: React.FC<PDFExportButtonProps> = ({
       
     } catch (error) {
       console.error('PDF oluşturma hatası:', error);
-      alert('PDF oluşturulurken bir hata oluştu.');
+      alert('PDF oluşturulurken bir hata oluştu.\n' + (error instanceof Error ? error.message : String(error)));
     } finally {
       setIsExporting(false);
     }
@@ -88,7 +91,7 @@ const PDFExportButton: React.FC<PDFExportButtonProps> = ({
       ) : (
         <>
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0-2 2h12a2 2 0 0 0 2-2V8z"></path>
             <polyline points="14 2 14 8 20 8"></polyline>
             <line x1="10" y1="14" x2="14" y2="14"></line>
           </svg>
