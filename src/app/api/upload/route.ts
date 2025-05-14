@@ -65,7 +65,7 @@ export async function POST(req: NextRequest) {
         // Özür
         if (/(özür|pardon|affet|kusura bakma)/i.test(msg)) user_apology_count[user] = (user_apology_count[user] || 0) + 1;
         // Sevgi
-        if (/(seni seviyorum|canım|aşkım|kalp|<3|love|❤️|😘|😍)/i.test(msg)) user_love_count[user] = (user_love_count[user] || 0) + 1;
+        if (/(seni seviyorum|can[ıi1!l|*4@a][mmn]+|a[ş$§5s*][kq][ıi1!l|*4@a][mmn]+|kalp|<3|love|❤️|😘|😍)/i.test(msg.replace(/[^a-zA-Z0-9ğüşöçıİĞÜŞÖÇ]/gi, ''))) user_love_count[user] = (user_love_count[user] || 0) + 1;
         // Cevap süresi
         if (prev_user && user !== prev_user && prev_time) {
           const diff = (dt.getTime() - prev_time.getTime()) / 1000;
