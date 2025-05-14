@@ -29,9 +29,7 @@ interface AnalyzeResult {
 export default function Home() {
   const [file, setFile] = useState<File | null>(null);
   const [analyzeResult, setAnalyzeResult] = useState<AnalyzeResult | null>(null);
-  const [filename, setFilename] = useState<string>("");
   const [isUploading, setIsUploading] = useState(false);
-  const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [currentYear, setCurrentYear] = useState<number | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const reportRef = useRef<HTMLDivElement>(null);
@@ -80,59 +78,14 @@ export default function Home() {
       }
       
       // Dosya yüklendiğinde (artık dosya değil tüm analiz sonuçları)
-      if (data.filename) {
-        setFilename(data.filename);
-        // Analiz sonuçlarını direkt olarak set edelim
-        setAnalyzeResult(data);
-        toast.success("Dosya başarıyla analiz edildi!", { id: "upload" });
-      } else {
-        const errorMsg = "Beklenmeyen bir hata oluştu. Sunucudan geçerli yanıt alınamadı.";
-        toast.error(errorMsg, { id: "upload" });
-      }
+      setAnalyzeResult(data);
+      toast.success("Dosya başarıyla analiz edildi!", { id: "upload" });
     } catch (error) {
       console.error("Yükleme hatası:", error);
       const errorMsg = "Bağlantı hatası! Lütfen tekrar deneyin.";
       toast.error(errorMsg, { id: "upload" });
     } finally {
       setIsUploading(false);
-    }
-  };
-
-  const handleAnalyze = async () => {
-    // filename'e ihtiyaç yoksa analiz için
-    setIsAnalyzing(true);
-    toast.loading("Analiz yapılıyor...", { id: "analyze" });
-    
-    try {
-      if (analyzeResult) {
-        // Zaten analiz edilmiş dosya var
-        toast.success("Analiz tamamlandı! Sonuçları inceleyebilirsiniz.", { id: "analyze" });
-        return;
-      }
-      
-      const response = await fetch("/api/analyze", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ filename }),
-      });
-      
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      
-      const data = await response.json();
-      if (data.error) {
-        toast.error(data.error, { id: "analyze" });
-      } else {
-        setAnalyzeResult(data);
-        toast.success("Analiz tamamlandı! Sonuçları inceleyebilirsiniz.", { id: "analyze" });
-      }
-    } catch (error) {
-      console.error("Analiz hatası:", error);
-      const errorMsg = "Analiz sırasında hata oluştu! Lütfen tekrar deneyin.";
-      toast.error(errorMsg, { id: "analyze" });
-    } finally {
-      setIsAnalyzing(false);
     }
   };
 
